@@ -5,7 +5,7 @@
 .. raw:: html
 
     <p align="center">
-        <img src="misc/logo.svg" width="50" />
+        <img src="misc/logo.png" width="50" />
     </p>
 
 =========
