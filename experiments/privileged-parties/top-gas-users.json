@@ -1,0 +1,222 @@
+{
+    "description": "Top 15 gas users (3hr avg.) apr. 26 2022, https://etherscan.io/gastracker",
+    "data": [
+                ["0x7f268357A8c2552623316e2562D90e642bB538E5", "OpenSea: Wyvern Exchange v2",
+                    [
+                        "transferOwnership(address)",
+                        "renounceOwnership()",
+                        "changeMinimumMakerProtocolFee(uint256)",
+                        "changeMinimumTakerProtocolFee(uint256)",
+                        "changeProtocolFeeRecipient(address)",
+                        "changeMinimumMakerProtocolFee(uint256 newMinimumMakerProtocolFee)",
+                        "changeMinimumTakerProtocolFee(uint256 newMinimumTakerProtocolFee)",
+                        "changeProtocolFeeRecipient(address newProtocolFeeRecipient)",
+                        "cancelOrderWithNonce_(address[7],uint256[9],uint8,uint8,uint8,uint8,bytes,bytes,bytes,uint8,bytes32,bytes32,uint256)",
+                        "cancelOrder_(address[7],uint256[9],uint8,uint8,uint8,uint8,bytes,bytes,bytes,uint8,bytes32,bytes32)",
+                        "atomicMatch_(address[14],uint256[18],uint8[8],bytes,bytes,bytes,bytes,bytes,bytes,uint8[2],bytes32[5])"
+                    ],
+                    ["0xa839d4b5a36265795eba6894651a8af3d0ae2e68"]
+                ],
+                ["0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45", "Uniswap v3: Router 2",
+                    [],
+                    []
+                ],
+                ["0x1b5d2904bE3E4711a848Be09b17dEE89E6A5BC27", "Merkle distributor Proxy",
+                    [
+                        "upgradeTo(address)",
+                        "upgradeToAndCall(address,bytes)",
+                        "implementation()",
+                        "changeAdmin(address)",
+                        "admin()",
+                        "fallback"
+                    ],
+                    ["0x859f6e05410893fe64bc84d92bda773ff798cf66"]
+                ],
+                ["0x7529834A5974E2d5FFF3D0f0591e9A5Ca2CA1619", "Merkle distributor",
+                    [
+                        "pauseAirdrop()",
+                        "unpauseAirdrop()",
+                        "setMerkleRoot(bytes32 _merkleRoot)",
+                        "setEndTimestamp(uint256 _endTimestamp)",
+                        "withdrawTokenRewards()",
+                        "renounceOwnership()",
+                        "transferOwnership(address newOwner)"
+                    ],
+                    ["0x0000000000000000000000000000000000000000"]
+                ],
+                ["0xdAC17F958D2ee523a2206206994597C13D831ec7", "Tether Stablecoin",
+                    [
+                        "transferOwnership(address newOwner)",
+                        "pause()",
+                        "unpause()",
+                        "addBlackList(address _evilUser)",
+                        "removeBlackList(address _clearedUser)",
+                        "destroyBlackFunds(address _blackListedUser)",
+                        "deprecate(address _upgradedAddress)",
+                        "issue(uint256 amount)",
+                        "redeem(uint256 amount)",
+                        "setParams(uint256 newBasisPoints, uint256 newMaxFee)"
+                    ],
+                    ["0xc6cde7c39eb2f0f0095f41570af89efc2c1ea828"]
+                ],
+                ["0x881D40237659C251811CEC9c364ef91dC08D300C", "Metamask swap router", [], []],
+                ["0xFbdDaDD80fe7bda00B901FbAf73803F2238Ae655", "Strongblock: service Proxy",
+                    [
+                        "upgradeTo(address)",
+                        "upgradeToAndCall(address,bytes)",
+                        "implementation()",
+                        "changeAdmin(address)",
+                        "admin()",
+                        "fallback"
+                    ],
+                    []
+                ],
+                ["0xC2899DFcb0a81b73e89E4a99cd24AB26D8a78295", "Strongblock: service",
+                    [
+                        "updateServiceAdmin(address newServiceAdmin)",
+                        "updateParameterAdmin(address newParameterAdmin)",
+                        "updateFeeCollector(address newFeeCollector)",
+                        "setPendingAdmin(address newPendingAdmin)",
+                        "acceptAdmin()",
+                        "setPendingSuperAdmin(address newPendingSuperAdmin)",
+                        "acceptSuperAdmin()",
+                        "updateRewardPerBlock(uint256 numerator, uint256 denominator)",
+                        "updateNaaSRewardPerBlock(uint256 numerator, uint256 denominator)",
+                        "updateRewardPerBlockNew(uint256 numerator, uint256 denominator, uint256 numeratorNass, uint256 denominatorNass, uint256 effectiveBlock)",
+                        "deposit(uint256 amount)",
+                        "withdraw(address destination, uint256 amount)",
+                        "updateRequestingFee(uint256 feeInWei)",
+                        "updateStrongFee(uint256 feeInWei)",
+                        "updateNaasRequestingFee(uint256 feeInWei)",
+                        "updateNaasStrongFee(uint256 feeInWei)",
+                        "updateClaimingFee(uint256 numerator, uint256 denominator)",
+                        "updateRecurringFee(uint256 feeInWei)",
+                        "updateRecurringNaaSFee(uint256 feeInWei)",
+                        "updateRecurringPaymentCycleInBlocks(uint256 blocks)",
+                        "updateGracePeriodInBlocks(uint256 blocks)",
+                        "setEntityActiveStatus(address entity, bool status)",
+                        "function payFee(uint128 nodeId)",
+                        "claim(uint128 nodeId, uint256 blockNumber, bool toStrongPool)",
+                        "approveBYONNode(address entity, uint128 nodeId)",
+                        "suspendBYONNode(address entity, uint128 nodeId)",
+                        "setNodeIsActive(address entity, uint128 nodeId, bool isActive)",
+                        "setNodeIsNaaS(address entity, uint128 nodeId, bool isNaaS)",
+                        "addNFTBonusContract(address _contract)",
+                        "updateLimits(uint128 _maxNodes, uint256 _maxPaymentPeriods)",
+                        "setTokenContract(address tokenAddress)",
+                        "withdrawToken(address token, address recipient, uint256 amount)",
+                        "disableNodeAdmin(address entity, uint128 nodeId)"
+                    ],
+                    ["0x0000000000000000000000000000000000000000"]
+                ],
+                ["0x0d02755a5700414B26FF040e1dE35D337DF56218", "BendDao: Bend token Proxy",
+                    [
+                        "upgradeTo(address)",
+                        "upgradeToAndCall(address,bytes)",
+                        "implementation()",
+                        "changeAdmin(address)",
+                        "admin()",
+                        "fallback"
+                    ],
+                    ["0x859f6e05410893fe64bc84d92bda773ff798cf66"]
+                ],
+                ["0x02863C14603C3b157379999F567DDECE151e9153", "BendDao: Bend token",
+                    [],
+                    []
+                ],
+                ["0x283Af0B28c62C092C9727F1Ee09c02CA627EB7F5", "ENS: ETH Registrar Controller",
+                    [
+                        "renounceOwnership()",
+                        "transferOwnership(address newOwner)",
+                        "setPriceOracle(address _prices)",
+                        "setCommitmentAges(uint256 _minCommitmentAge, uint256 _maxCommitmentAge)",
+                        "withdraw()"
+                    ],
+                    ["0xfe89cc7abb2c4183683ab71653c4cdc9b02d44b7"]
+                ],
+                ["0x1111111254fb6c44bAC0beD2854e76F90643097d", "1inch v4: Router",
+                    [
+                        "renounceOwnership()",
+                        "transferOwnership(address newOwner)",
+                        "rescueFunds(address token, uint256 amount)",
+                        "destroy()"
+                    ],
+                    ["0x5e89f8d81c74e311458277ea1be3d3247c7cd7d1"]
+                ],
+                ["0xa5409ec958C83C3f309868babACA7c86DCB077c1", "OpenSea: Registry",
+                    [
+                        "transferOwnership(address newOwner)",
+                        "renounceOwnership()",
+                        "startGrantAuthentication(address addr)",
+                        "endGrantAuthentication(address addr)",
+                        "revokeAuthentication(address addr)",
+                        "grantInitialAuthentication(address authAddress)"
+                    ],
+                    ["0xa839d4b5a36265795eba6894651a8af3d0ae2e68"]
+                ],
+                ["0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D", "Uniswap v2: Router2",
+                    [],
+                    []
+                ],
+                ["0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", "Center: USD Coin Proxy",
+                    [
+                        "admin()",
+                        "implementation()",
+                        "changeAdmin(address newAdmin)",
+                        "upgradeTo(address newImplementation)",
+                        "upgradeToAndCall(address newImplementation, bytes data)",
+                        "fallback"
+                    ],
+                    ["0x0000000000000000000000000000000000000000"]
+                ],
+                ["0xa2327a938Febf5FEC13baCFb16Ae10EcBc4cbDCF", "Center: USD Coin",
+                    [
+                        "updateBlacklister(address _newBlacklister)",
+                        "unBlacklist(address _account)",
+                        "blacklist(address _account)",
+                        "updateMasterMinter(address _newMasterMinter)",
+                        "updateRescuer(address newRescuer)",
+                        "transferOwnership(address newOwner)",
+                        "updatePauser(address _newPauser)",
+                        "pause()",
+                        "unpause()",
+                        "configureMinter(address minter, uint256 minterAllowedAmount)",
+                        "removeMinter(address minter)",
+                        "rescueERC20(address,address,uint256)"
+                    ],
+                    ["0x0000000000000000000000000000000000000001", "0x0000000000000000000000000000000000000000"]
+                ],
+                ["0x0000000035634B55f3D99B071B5A354f48e10BEF", "Gem: Single Contract Checkout 2",
+                    [],
+                    []
+                ],
+                ["0x83C8F28c26bF6aaca652Df1DbBE0e1b56F8baBa2", "Gem: GemSwap 2",
+                    [
+                        "setUp()",
+                        "setOneTimeApproval(address token, address operator, uint256 amount)",
+                        "updateGuardian(address _guardian)",
+                        "addAffiliate(address _affiliate)",
+                        "updateAffiliate(uint256 _affiliateIndex, address _affiliate, bool _IsActive)",
+                        "addSponsoredMarket(uint256 _marketId)",
+                        "updateSponsoredMarket(uint256 _marketIndex, uint256 _marketId, bool _isActive)",
+                        "setBaseFees(uint256 _baseFees)",
+                        "setOpenForTrades(bool _openForTrades)",
+                        "setOpenForFreeTrades(bool _openForFreeTrades)",
+                        "setConverter(address _converter)",
+                        "setMarketRegistry(address _marketRegistry)",
+                        "rescueETH(address recipient)",
+                        "rescueERC20(address asset, address recipient)",
+                        "rescueERC721(address asset, uint256[] calldata ids, address recipient)",
+                        "rescueERC1155(address asset, uint256[] calldata ids, uint256[] calldata amounts, address recipient)",
+                        "closeAllTrades()",
+                        "renounceOwnership()",
+                        "transferOwnership(address newOwner)"
+                    ],
+                    ["0x073ab1c0cad3677cde9bdb0cdeedc2085c029579"]
+                ],
+                ["0xB80216D5b4eec2BEc74eF10e5d3814Fec6Fd8af0", "UNKNOWN",
+                    [],
+                    []
+                ]
+    ]
+}

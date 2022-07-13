@@ -1,0 +1,7 @@
+0x000000000000cd17345801aa8147b8d3950260ff - Poster, Source-code, ERC2980
+0x06012c8cf97bead5deae237070f9587f8e7a266d - CryptoKitties, ERC20, ERC721 and constraint functions
+0xaadafb3bfea42ba02252f6ce456f56713ab49eba - Gastoken, gastoken bytecode, no functions
+0xb8c77482e45f1f44de1745f52c74426c631bdd52 - BNB token, Source-code, ERC20, constraint functions
+0xca2ad74003502af6b727e846fab40d6cb8da0035 - Stakehavens, Source-code on sourcify, ERC20
+0x000000000000006f6502b7f2bbac8c30a3f67e9a - Strange frontrunning contract without functions
+0x0000000000007f150bd6f54c40a34d7c3d5e9f56 - similar to the last entry

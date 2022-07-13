@@ -1,0 +1,28 @@
+{
+    "description": "CryptoKitties",
+    "data": [
+                [
+                    "0x06012c8cf97bead5deae237070f9587f8e7a266d",
+                    "CryptoKitties",
+                    [
+                        "setCEO(address _newCEO)",
+                        "setCFO(address _newCFO)",
+                        "setCOO(address _newCOO)",
+                        "pause()",
+                        "unpause()",
+                        "setSecondsPerBlock(uint256 secs)",
+                        "setMetadataAddress(address _contractAddress)",
+                        "setSaleAuctionAddress(address)",
+                        "setSiringAuctionAddress(address)",
+                        "setSecondsPerBlock(uint256)",
+                        "withdrawAuctionBalances()",
+                        "setNewAddress(address)",
+                        "setGeneScienceAddress(address)",
+                        "createGen0Auction(uint256)",
+                        "setAutoBirthFee(uint256)",
+                        "createPromoKitty(uint256, address)"
+                    ],
+                    ["0xa874aa3e03842a84e4b252315488d27837d89544", "0xaf1e54b359b0897133f437fc961dd16f20c045e1", "0x09191d18729da57a83a9afc8ace0c8d7d104e118"]
+                ]
+    ]
+}
