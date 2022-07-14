@@ -144,6 +144,11 @@ Creating the docs need python dev dependencies to build see (Stackoverflow_)
 
 Credits
 =======
+
+We thank all the developers of mythril for their great work. Without which this project would not exist.
+
+ - `Mythril <https://github.com/ConsenSys/mythril>`_
+
 We would like to thank the following projects for inspiration.
 
  - `Evmdis <https://github.com/Arachnid/evmdis>`_
@@ -161,3 +166,14 @@ The following section contains a couple of similar projects and useful libraries
  - `hevm <https://github.com/dapphub/dapptools>`_
  - `ethtx <https://github.com/ethtx/ethtx>`_
  - `slither <https://github.com/crytic/slither>`_
+
+Funding
+=======
+
+This project was created in the course of the KRYPTOMONITOR project.
+
+    The security research project KRYPTOMONITOR is funded by the Austrian
+    security research programme KIRAS of the Federal Ministry of Agriculture,
+    Regions and Tourism (BMLRT).
+
+- `Kryptomonitor Project <https://kryptomonitor-project.info/>`_
