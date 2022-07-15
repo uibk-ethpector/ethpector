@@ -25,3 +25,8 @@ Version 0.1.3
 
 - bumped dependency versions
 - move to github
+
+Version 0.1.4
+=============
+
+- added cfg api to BasicBlocks and BasicBlock

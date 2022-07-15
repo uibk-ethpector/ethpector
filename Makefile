@@ -39,9 +39,13 @@ pre-commit:
 	pre-commit run --all-files
 
 build:
+	tox -e clean
 	tox -e build
 
-publish:
+publish: build
 	tox -e publish
+
+version:
+	python -m setuptools_scm
 
 .PHONY: all run test install lint format build pre-commit docs test-all docs-latex publish

@@ -2,11 +2,12 @@
 
 .. _venv: https://docs.python.org/3/library/venv.html
 
-.. raw:: html
 
-    <p align="center">
-        <img src="misc/logo.png" width="50" />
-    </p>
+.. image:: https://github.com/soad003/ethpector/blob/main/misc/logo.png
+   :target: https://github.com/soad003/ethpector/blob/main/misc/logo.png
+   :align: center
+   :alt: logo
+   :width: 50px
 
 =========
 Ethpector
