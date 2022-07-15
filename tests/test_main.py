@@ -296,3 +296,21 @@ def test_main_create_data_test(capsys):
 
     assert len(symsum.creates) == 1
     assert repr(symsum.creates[0].data) == deploy_target
+
+
+@pytest.mark.slow
+def test_main_bbs_can_get_cfg(capsys):
+    config = Configuration.default(
+        offline=False,
+        output=["all"],
+        tofile=True,
+        nodotenv=False,
+    )
+
+    analysis = extract_information(address=None, code=CODE, config=config)
+    ads = analysis.get_annotated_dissassembly()
+
+    g = ads.get_cfg()
+
+    assert len(g.nodes) == 120
+    assert len(g.edges) >= 67

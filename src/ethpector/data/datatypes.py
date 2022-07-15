@@ -8,6 +8,7 @@ from mythril.laser.ethereum.state.global_state import GlobalState
 from mythril.laser.ethereum.natives import PRECOMPILE_COUNT
 from mythril.laser.smt import BitVec
 from ethpector.utils import to_int, truncate_str
+from typing import Optional
 
 CALL_INSTRUCTION_LIST = ["CALL", "DELEGATECALL", "CALLCODE", "STATICCALL"]
 STATE_READ_WRITE_INSTRUCTION_LIST = ["SSTORE", "SLOAD", "CREATE", "CREATE2"]
@@ -341,10 +342,10 @@ class PCAnnotation(AnnotationBase):
     slots=False,
 )
 class JumpTarget(PCAnnotation):
-    target: str
+    target: int
 
-    def target_int(self):
-        return int(self.target, 16)
+    def target_int(self) -> int:
+        return self.target
 
     def __init__(self, pc, target):
         super().__init__(pc=pc)
@@ -800,6 +801,9 @@ class Selfdestruct(SymbolicAnnotation):
 class UnconditionalJump(SymbolicAnnotation):
     to: SymbolicVariable
 
+    def target_int(self) -> Optional[int]:
+        return self.to.concrete_val()
+
     def __init__(self, state, to):
         super().__init__(state)
         self.to = to
@@ -828,6 +832,9 @@ class UnconditionalJump(SymbolicAnnotation):
 class ConditionalJump(SymbolicAnnotation):
     to: SymbolicVariable
     condition: object
+
+    def target_int(self) -> Optional[int]:
+        return self.to.concrete_val()
 
     def __init__(self, state, to, condition):
         super().__init__(state)

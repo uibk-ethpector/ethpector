@@ -1,5 +1,6 @@
 import logging
 import pyevmasm as EVMAsm
+import networkx as nx
 from typing import Optional
 from mythril.ethereum import util
 from mythril.support.support_utils import get_code_hash
@@ -7,6 +8,9 @@ from ethpector.data import (
     ToJsonDecorator,
     AnnotationBase,
     MetaDataString,
+    JumpTarget,
+    ConditionalJump,
+    UnconditionalJump,
     CALL_INSTRUCTION_LIST,
 )
 from ethpector.utils import pairwise, is_max_int
@@ -47,6 +51,12 @@ class Instruction:
 
     def is_dup(self) -> bool:
         return self.instruction.name.startswith("DUP")
+
+    def is_jumpi(self) -> bool:
+        return self.instruction.name == "JUMPI"
+
+    def is_jump(self) -> bool:
+        return self.instruction.name == "JUMP"
 
     def is_push(self) -> bool:
         return self.instruction.name.startswith("PUSH")
@@ -131,6 +141,12 @@ class BasicBlock:
     def get_instructions(self):
         return self.instructions
 
+    def get_last_instruction(self):
+        if not any(self.instructions):
+            return None
+        else:
+            return self.instructions[-1]
+
     def get_first_pc(self):
         return self.instructions[0].pc() if len(self.instructions) > 0 else None
 
@@ -149,6 +165,49 @@ class BasicBlock:
         else:
             raise Exception("Too many annotations")
 
+    def is_static_jump_block(self) -> bool:
+        li = self.get_last_instruction()
+        if li is None:
+            return False
+        else:
+            return li.is_jump()
+
+    def is_terminator_block(self) -> bool:
+        li = self.get_last_instruction()
+        if li is None:
+            return True
+        else:
+            return self.instructions[-1].is_terminator()
+
+    def get_next_block_true_branch(self) -> Optional[int]:
+        li = self.get_last_instruction()
+        if li is not None:
+            if li.is_jump():
+                ann = li.get_single_annotation(JumpTarget)
+                if ann is not None:
+                    return ann.target_int()
+                ann = li.get_single_annotation(UnconditionalJump)
+                if ann is not None:
+                    return ann.target_int()
+                log.warning("Did not find true branch target for unconditional branch.")
+            elif li.is_jumpi():
+                ann = li.get_single_annotation(ConditionalJump)
+                if ann is not None:
+                    return ann.target_int()
+                ann = li.get_single_annotation(JumpTarget)
+                if ann is not None:
+                    return ann.target_int()
+                log.warning("Did not find true branch target conditional branch.")
+
+        return None
+
+    def get_next_block_false_branch(self):
+        li = self.get_last_instruction()
+        if li is not None:
+            if li.is_jumpi():
+                return self.nextBlockIndex
+        return None
+
     def propagage_block_annotations(self):
         intersection = list(
             set.intersection(*[set(x.annotations) for x in self.instructions])
@@ -166,7 +225,17 @@ class BasicBlock:
 
 @ToJsonDecorator
 class BasicBlocks(list):
-    pass
+    def get_cfg(self):
+        g = nx.DiGraph()
+        for i, x in enumerate(self):
+            g.add_node(i)
+            tb = x.get_next_block_true_branch()
+            if tb is not None:
+                g.add_edge(i, tb)
+            fb = x.get_next_block_false_branch()
+            if fb is not None:
+                g.add_edge(i, fb)
+        return g
 
 
 class Program:
