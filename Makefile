@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PROJECT := ethpector
 VENV := .venv
 
-all: format lint test
+all: format lint test build
 
 dev:
 	 pip install -e .[dev]
@@ -41,4 +41,7 @@ pre-commit:
 build:
 	tox -e build
 
-.PHONY: all run test install lint format build pre-commit docs test-all docs-latex
+publish:
+	tox -e publish
+
+.PHONY: all run test install lint format build pre-commit docs test-all docs-latex publish

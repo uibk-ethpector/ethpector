@@ -231,10 +231,10 @@ class BasicBlocks(list):
             g.add_node(i)
             tb = x.get_next_block_true_branch()
             if tb is not None:
-                g.add_edge(i, tb)
+                g.add_edge(i, tb, is_true_branch=True)
             fb = x.get_next_block_false_branch()
             if fb is not None:
-                g.add_edge(i, fb)
+                g.add_edge(i, fb, is_true_branch=False)
         return g
 
 
