@@ -87,19 +87,18 @@ The example folder holds some interesting binaries as well as addresses to test 
 Development
 ===========
 
-it is advised to use a virtual environment (venv) for development.
+it is advised to use a virtual environment (venv) for development. Run the following command to initialize one
 ::
 
     > python3 -m venv .venv
 
-
-Run the following command to initialize one
+and activate it (in bash) using
 
 ::
 
     > source .venv/bin/activate
 
-to activate it (in bash). For more information refer to (venv_). Run
+ For more information refer to (venv_). Run
 ::
 
     > make dev
