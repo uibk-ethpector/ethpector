@@ -3,6 +3,7 @@ import pytest
 
 from ethpector.main import main, extract_information
 from ethpector.config import Configuration
+from ethpector.data.signatures import add_to_signature_db
 
 __author__ = "soad003"
 __copyright__ = "soad003"
@@ -89,6 +90,8 @@ def test_main_basicowner_function_summary(capsys):
 
 @pytest.mark.slow
 def test_main_basicowner_call_summary(capsys):
+    add_to_signature_db("foo(string)")
+
     main([CODE, "--output=calls", "--offline", "--nodotenv"])
     captured = capsys.readouterr()
     j = json.loads(captured.out)
