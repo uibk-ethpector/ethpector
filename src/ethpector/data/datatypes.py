@@ -331,15 +331,7 @@ class PCAnnotation(AnnotationBase):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class JumpTarget(PCAnnotation):
     target: int
@@ -353,15 +345,7 @@ class JumpTarget(PCAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class FunctionEntrypoint(PCAnnotation):
     function_name: str
@@ -378,15 +362,7 @@ class FunctionEntrypoint(PCAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class SymbolicAnnotation(PCAnnotation):
     def __init__(self, state):
@@ -413,15 +389,7 @@ class SymbolicAnnotation(PCAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class Call(SymbolicAnnotation):
     to: SymbolicVariable
@@ -488,15 +456,7 @@ class Call(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class Push(SymbolicAnnotation):
     value: int
@@ -515,15 +475,7 @@ class Push(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class StorageLoad(SymbolicAnnotation):
     slot: SymbolicVariable
@@ -540,15 +492,7 @@ class StorageLoad(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class MemoryLoad(SymbolicAnnotation):
     slot: SymbolicVariable
@@ -565,15 +509,7 @@ class MemoryLoad(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class StorageWrite(SymbolicAnnotation):
     slot: SymbolicVariable
@@ -597,17 +533,7 @@ class StorageWrite(SymbolicAnnotation):
         return cls(state, adr, val)
 
 
-dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
-)
+dataclass(init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False)
 
 
 class MemoryWrite(SymbolicAnnotation):
@@ -633,15 +559,7 @@ class MemoryWrite(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class Log(SymbolicAnnotation):
 
@@ -704,15 +622,7 @@ class Log(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class Return(SymbolicAnnotation):
     data: SymbolicMemorySlice
@@ -732,15 +642,7 @@ class Return(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class Revert(SymbolicAnnotation):
     data: SymbolicMemorySlice
@@ -760,15 +662,7 @@ class Revert(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class Selfdestruct(SymbolicAnnotation):
     address: SymbolicVariable
@@ -788,15 +682,7 @@ class Selfdestruct(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class UnconditionalJump(SymbolicAnnotation):
     to: SymbolicVariable
@@ -819,15 +705,7 @@ class UnconditionalJump(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class ConditionalJump(SymbolicAnnotation):
     to: SymbolicVariable
@@ -850,15 +728,7 @@ class ConditionalJump(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class Calldataload(SymbolicAnnotation):
     offset: SymbolicVariable
@@ -875,15 +745,7 @@ class Calldataload(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class Calldatacopy(SymbolicAnnotation):
     offset: SymbolicVariable
@@ -909,15 +771,7 @@ class Calldatacopy(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class Create(SymbolicAnnotation):
     value: SymbolicVariable
@@ -940,15 +794,7 @@ class Create(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class Create2(SymbolicAnnotation):
     salt: SymbolicVariable
@@ -974,15 +820,7 @@ class Create2(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class SenderConstraintFunction(SymbolicAnnotation):
     address: SymbolicVariable
@@ -1047,15 +885,7 @@ class SenderConstraintFunction(SymbolicAnnotation):
 
 
 @dataclass(
-    init=False,
-    repr=True,
-    eq=False,
-    order=False,
-    unsafe_hash=False,
-    frozen=False,
-    match_args=False,
-    kw_only=False,
-    slots=False,
+    init=False, repr=True, eq=False, order=False, unsafe_hash=False, frozen=False
 )
 class FunctionSummary(AnnotationBase):
     name: str
@@ -1210,7 +1040,7 @@ class AssemblySummary(AnnotationBase):
         )
 
 
-@dataclass(eq=False, order=False, unsafe_hash=False, slots=False)
+@dataclass(eq=False, order=False, unsafe_hash=False)
 class SymbolicExecSummary:
     functions: list[FunctionSummary]
     calls: list[Call]
