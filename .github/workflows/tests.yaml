@@ -28,7 +28,6 @@ jobs:
           mkdir .mythril
           cd .mythril
           curl -O https://github.com/ConsenSys/mythril/blob/develop/mythril/support/assets/signatures.db
-          ls -al home/runner/.mythril
       - name: Run tox
         # Run tox using the version of Python in `PATH`
         run: tox -e py
