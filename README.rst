@@ -24,11 +24,11 @@ Currently the tool enables:
 
 - Fetching code by addresses (via web3 rpc)
 - Fetching source-code for addresses (Etherscan and Sourcify)
-- Recovering interfaces including logs for binaries
+- Recovering interfaces including logs from binaries
 - Resolving function and event selectors (via 4bytes and more)
 - It uses control-flow analysis and symbolic execution (mythril) to extract data like calls, stores, logs, etc. including parameters if possible
-- Creates annotated disassembly
-- Basic contract classification based on interfaces and bytecode
+- It creates annotated disassembly
+- It simple contract classification method based on interfaces and bytecode
 
 For a more advanced example of how to use this data look at the examples in the experiments folder.
 
