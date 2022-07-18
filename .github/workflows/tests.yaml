@@ -2,9 +2,6 @@ name: Unit Tests
 
 on: [push]
 
-env:
-  MYTHRIL_DIR: /root/.mythril/
-
 jobs:
   build:
 
@@ -26,9 +23,7 @@ jobs:
       - name: Install rust (needed for blake-py)
         run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --default-toolchain nightly
       - name: debug 1
-        run: ls -al /home/runner/.mythril/ || ls -al /root/.mythril/ || true
+        run: mkdir /home/runner/.mythril/ && cd /home/runner/.mythril && curl -O https://github.com/ConsenSys/mythril/blob/develop/mythril/support/assets/signatures.db && ls -al home/runner/.mythril
       - name: Run tox
         # Run tox using the version of Python in `PATH`
         run: tox -e py
-      - name: debug 2
-        run: ls -al /home/runner/.mythril/ || ls -al /root/.mythril/ || true
