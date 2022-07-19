@@ -1,0 +1,25 @@
+name: Docs and other stuff
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.9", "3.10"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python }}
+      - name: lint
+        run: make lint
+      - name: Run tox to create docs
+        run: tox -e docs
+      - name: Build wheel
+        # Run tox using the version of Python in `PATH`
+        run: tox -e build

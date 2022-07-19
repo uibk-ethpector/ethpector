@@ -100,6 +100,7 @@ and activate it (in bash) using
     > source .venv/bin/activate
 
  For more information refer to (venv_). Run
+
 ::
 
     > make dev
