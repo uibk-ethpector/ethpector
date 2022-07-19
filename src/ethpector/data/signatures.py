@@ -39,12 +39,15 @@ class SignatureProvider(DataProvider):
     """
 
     def __init__(self, enable_online_lookup=True):
+        self._offline = not enable_online_lookup
         self.sigdb = SignatureDB(enable_online_lookup=enable_online_lookup)
 
     def lookup_function(self, sign):
         return self.sigdb.get(sign)
 
     def lookup_event(self, sign):
+        if self._offline:
+            return None
         sign = strip_0x(sign)
         r = requests.get(
             "https://www.4byte.directory"

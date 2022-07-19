@@ -17,7 +17,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - name: lint
-        run: make lint
+        run: tox -e lint
       - name: Run tox to create docs
         run: tox -e docs
       - name: Build wheel
