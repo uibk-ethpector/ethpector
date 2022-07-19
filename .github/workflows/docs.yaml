@@ -1,4 +1,4 @@
-name: Docs and other stuff
+name: Lint, Build, Docs-Build
 
 on: [push]
 

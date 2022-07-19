@@ -2,7 +2,8 @@
 
 .. _venv: https://docs.python.org/3/library/venv.html
 
- .. image:: https://github.com/soad003/ethpector/actions/workflows/tests.yaml/badge.svg
+.. image:: https://github.com/soad003/ethpector/actions/workflows/tests.yaml/badge.svg
+.. image:: https://github.com/soad003/ethpector/actions/workflows/docs.yaml/badge.svg
 
 .. image:: https://github.com/soad003/ethpector/blob/main/misc/logo.png
    :target: https://github.com/soad003/ethpector/blob/main/misc/logo.png
