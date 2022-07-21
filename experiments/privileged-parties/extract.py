@@ -6,7 +6,14 @@ def analyze_address_multiprocessing(input_tuple):
     import logging
     import os
 
-    adr, name, expected_results_functions, expected_results_owners, folder = input_tuple
+    (
+        adr,
+        name,
+        expected_results_functions,
+        expected_results_owners,
+        folder,
+        cutoff_time,
+    ) = input_tuple
 
     tags = load_dict_from_file("tags.json")
 
@@ -44,6 +51,7 @@ def analyze_address_multiprocessing(input_tuple):
             folder,
             logger,
             save_results=True,
+            cutoff_time=cutoff_time,
         )
 
 
@@ -74,6 +82,7 @@ def analyze_address(
     logger,
     save_results=False,
     follow_proxies=True,
+    cutoff_time=None,
 ):
     from ethpector.main import extract_information, output_result
     from ethpector.config import Configuration
@@ -96,7 +105,7 @@ def analyze_address(
         ],
         tofile=True,
         nodotenv=False,
-        execution_timeout=600,
+        execution_timeout=600 if cutoff_time is None else cutoff_time,
         max_depth=512,
         loop_bound=5,
         create_timeout=60,
@@ -129,6 +138,7 @@ def analyze_address(
         summary_output["etherscan_abi_available"] = "etherscan" in abi_raw
         summary_output["address_summary"] = g_address_summary
         summary_output["address"] = adr
+        summary_output["bytecode_size"] = len(analysis.get_bytecode())
         summary_output["name"] = name + (
             f" ({contractName})" if contractName is not None else ""
         )
@@ -372,7 +382,7 @@ def analyze_address(
         summary_output["match_score_owners"] = calculate_matchscore(
             list(owners_set), list(owners_expected)
         )
-
+        summary_output["runtime"] = timer.get_seconds()
         if save_results:
             save_dict_to_file(
                 os.path.join(

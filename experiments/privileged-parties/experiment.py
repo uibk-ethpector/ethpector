@@ -11,15 +11,15 @@ import os
 import sys
 
 
-def prepare_worklist(dataset, folder):
+def prepare_worklist(dataset, folder, cutoff_time):
     addresses = [(x[0], x[1], x[2], x[3]) for x in dataset["data"]]
     return [
-        (adr, name, expected_res_functions, expected_res_owners, folder)
+        (adr, name, expected_res_functions, expected_res_owners, folder, cutoff_time)
         for adr, name, expected_res_functions, expected_res_owners in addresses
     ]
 
 
-def run_result(seed_file, recursiv, n_parallel):
+def run_result(seed_file, recursiv, n_parallel, cutoff_time):
     filename = seed_file
     jdata = load_dict_from_file(filename)
 
@@ -33,8 +33,8 @@ def run_result(seed_file, recursiv, n_parallel):
 
     os.makedirs(folder, exist_ok=True)
 
-    worklist = prepare_worklist(jdata, folder)
-    already_seen = {adr.lower(): True for adr, _, _, _, _ in worklist}
+    worklist = prepare_worklist(jdata, folder, cutoff_time)
+    already_seen = {adr.lower(): True for adr, _, _, _, _, _ in worklist}
     owners = set()
     round = 0
 
@@ -42,7 +42,8 @@ def run_result(seed_file, recursiv, n_parallel):
         print(
             f"Executing round {round}, "
             f"worklist length: {len(worklist)}, "
-            f"recursiv {recursiv} on {n_parallel} processes"
+            f"recursiv {recursiv} on {n_parallel} processes "
+            f"and a cut off for execution of {cutoff_time} s"
         )
         with Pool(processes=n_parallel, maxtasksperchild=1) as pool:
             return_values = pool.map(analyze_address_multiprocessing, worklist)
@@ -52,6 +53,7 @@ def run_result(seed_file, recursiv, n_parallel):
                 f"{filename} round {round}", [x for x in so if x not in already_seen]
             ),
             folder,
+            cutoff_time,
         )
         for x in so:
             already_seen[x] = True
@@ -68,7 +70,7 @@ def run_result(seed_file, recursiv, n_parallel):
         os.path.join(folder, f"{clean_filename}_owners.json"),
     )
 
-    evaluate_results(folder)
+    evaluate_results(folder, cutoff_time=cutoff_time)
 
     # i guess in the last 30 days but not known.
     # https://ethgasstation.info/json/gasguzz.json
@@ -82,7 +84,8 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Please provide seed file.")
     run_result(
-        sys.argv[1],
-        sys.argv[2].lower() == "true" if len(sys.argv) >= 3 else False,
-        int(sys.argv[3]) if len(sys.argv) >= 4 else 8,
+        seed_file=sys.argv[1],
+        recursiv=sys.argv[2].lower() == "true" if len(sys.argv) >= 3 else False,
+        n_parallel=int(sys.argv[3]) if len(sys.argv) >= 4 else 8,
+        cutoff_time=int(sys.argv[4]) if len(sys.argv) >= 5 else 600,
     )

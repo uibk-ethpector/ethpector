@@ -3,9 +3,10 @@ import re
 import os
 import sys
 from utils import score_accuracy, load_dict_from_file
+from ethpector.utils import flat
 
 
-def panda_export(folder, files):
+def panda_export(folder, files, cutoff_time=None):
     try:
         import pandas as pd
     except ModuleNotFoundError:
@@ -36,6 +37,9 @@ def panda_export(folder, files):
         "owners": [],
         "slots": [],
         "slot_writes": [],
+        "runtime": [],
+        "priv_functions": [],
+        "bytecode_size": [],
     }
     df = pd.DataFrame(data1)
 
@@ -58,6 +62,8 @@ def panda_export(folder, files):
         nr_fn = len(j["entry_points"])
         nr_logs = len(j["logs"])
 
+        priv_func = set(flat([x["functions"] for x in j["privileged_functions"]]))
+
         ls = [
             name,
             address,
@@ -79,6 +85,9 @@ def panda_export(folder, files):
             ", ".join(j["owners"]),
             ", ".join(j["slots"]),
             ", ".join([x["slot"] for x in j["writes_to_slots"]]),
+            int(j["runtime"]),
+            len(priv_func),
+            j["bytecode_size"],
         ]
         row = pd.Series(ls, index=df.columns)
         df = pd.concat([df, row.to_frame().T], axis=0, ignore_index=True)
@@ -107,14 +116,20 @@ def panda_export(folder, files):
 
     df["type"] = df.apply(get_type, axis=1)
 
-    df.to_csv(os.path.join(folder, "validation_summary.csv"), index=False)
+    file_name = (
+        "validation_summary.csv"
+        if cutoff_time is None
+        else f"validation_summary_{cutoff_time}.csv"
+    )
+
+    df.to_csv(os.path.join(folder, file_name), index=False)
 
 
-def evaluate_results(folder, include_without_source=False):
+def evaluate_results(folder, include_without_source=False, cutoff_time=None):
     files = glob.glob(os.path.join(f"{folder}", "*_summary.json"))
     out = glob.glob(os.path.join(f"{folder}", "*_out.txt"))
 
-    panda_export(folder, files)
+    panda_export(folder, files, cutoff_time=cutoff_time)
 
     print("ERRORS " + "#" * 20)
     for file_name in out:

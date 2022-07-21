@@ -11,13 +11,16 @@ from contextlib import redirect_stdout, redirect_stderr, contextmanager
 
 class TimeIt:
     def __init__(self):
-        pass
+        self.start = None
+        self.end = None
 
     def __enter__(self):
         self.start = time.time()
 
     def get_seconds(self):
-        return self.end - self.start
+        return (
+            self.end - self.start if self.end is not None else time.time() - self.start
+        )
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.end = time.time()

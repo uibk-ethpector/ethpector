@@ -27,21 +27,44 @@ class NodeProvider(DataProvider):
         return "node"
 
     @cache.memoize(ignore=[0])
-    def get_code(self, address):
+    def get_code(self, address, block_identifier=None):
         a = to_checksum(address)
-        return self._w3.toHex(self._w3.eth.get_code(a)) if a else None
+        if block_identifier:
+            return (
+                self._w3.toHex(
+                    self._w3.eth.get_code(a, block_identifier=block_identifier)
+                )
+                if a
+                else None
+            )
+        else:
+            return self._w3.toHex(self._w3.eth.get_code(a)) if a else None
 
-    def get_balance(self, address):
+    def get_balance(self, address, block_identifier=None):
         a = to_checksum(address)
-        return self._w3.eth.get_balance(a) if a else None
+        if block_identifier:
+            return (
+                self._w3.eth.get_balance(a, block_identifier=block_identifier)
+                if a
+                else None
+            )
+        else:
+            return self._w3.eth.get_balance(a) if a else None
 
     def address_tag(self, address):
         a = to_checksum(address)
         return self._w3.ens.name(a) if a else None
 
-    def get_storage_at(self, address, slot):
+    def get_storage_at(self, address, slot, block_identifier=None):
         a = to_checksum(address)
-        return self._w3.eth.get_storage_at(a, slot) if a else None
+        if block_identifier:
+            return (
+                self._w3.eth.get_storage_at(a, slot, block_identifier=block_identifier)
+                if a
+                else None
+            )
+        else:
+            return self._w3.eth.get_storage_at(a, slot) if a else None
 
     def get_implementation(self, address: str, additional_storage_slots=[]):
         """
