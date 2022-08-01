@@ -1,5 +1,4 @@
-name: Lint, Build, Docs-Build
-
+name: Build and Lint
 on: [push]
 
 jobs:
@@ -22,8 +21,6 @@ jobs:
         run: pip install tox
       - name: lint
         run: tox -e lint
-      - name: Run tox to create docs
-        run: tox -e docs
       - name: Build wheel
         # Run tox using the version of Python in `PATH`
         run: tox -e build
