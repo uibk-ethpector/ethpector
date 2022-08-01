@@ -1,27 +1,54 @@
-name: Deploy docs to github pages
-on: [push]
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy Docs to Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
-  build-and-deploy:
-    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout
         uses: actions/checkout@v3
-
+      - name: Setup Pages
+        uses: actions/configure-pages@v1
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.9"
       - name: Install rust (needed for blake-py)
         run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --default-toolchain nightly
-
+      - name: Install tox and any other packages
+        run: pip install tox
       - name: Install and Build 🔧
         run: |
           run: tox -e docs
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          folder: docs/_build/html # The folder the action should deploy.
+          # Upload entire repository
+          path: 'docs/_build/html'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@main
