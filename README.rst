@@ -22,6 +22,7 @@
 .. image:: https://img.shields.io/pypi/v/ethpector.svg
     :target: https://pypi.org/project/ethpector/
     :alt: pypi-version
+
 =========
 Ethpector
 =========
