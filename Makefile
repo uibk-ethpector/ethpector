@@ -42,10 +42,13 @@ build:
 	tox -e clean
 	tox -e build
 
-publish: build
+tpublish: build, version
 	tox -e publish
+
+publish: build version
+	tox -e publish -- --repository pypi
 
 version:
 	python -m setuptools_scm
 
-.PHONY: all run test install lint format build pre-commit docs test-all docs-latex publish
+.PHONY: all run test install lint format build pre-commit docs test-all docs-latex publish tpublish
