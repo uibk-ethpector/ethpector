@@ -11,16 +11,16 @@
 
 
 .. image:: https://github.com/uibk-ethpector/ethpector/actions/workflows/tests.yaml/badge.svg
-    :target: https://github.com/uibk-ethpector/ethpector/actions/workflows/tests.yaml/badge.svg
+    :target: https://github.com/uibk-ethpector/ethpector/actions/workflows/tests.yaml
     :alt: tests
 
 .. image:: https://github.com/uibk-ethpector/ethpector/actions/workflows/docs.yaml/badge.svg
-    :target: https://github.com/uibk-ethpector/ethpector/actions/workflows/docs.yaml/badge.svg
+    :target: https://github.com/uibk-ethpector/ethpector/actions/workflows/docs.yaml
     :alt: docs
 
 
 .. image:: https://img.shields.io/pypi/v/ethpector.svg
-    :target: https://img.shields.io/pypi/v/ethpector.svg
+    :target: https://pypi.org/project/ethpector/
     :alt: pypi-version
 =========
 Ethpector
