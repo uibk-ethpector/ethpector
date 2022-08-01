@@ -30,3 +30,9 @@ Version 0.1.4
 =============
 
 - added cfg api to BasicBlocks and BasicBlock
+
+
+Version 0.1.5
+=============
+
+- First public version
