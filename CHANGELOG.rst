@@ -36,3 +36,9 @@ Version 0.1.6
 =============
 
 - First public version
+
+
+Version 0.1.7
+=============
+
+- Documentation and cleanup
