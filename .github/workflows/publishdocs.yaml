@@ -42,7 +42,7 @@ jobs:
         run: pip install tox
       - name: Install and Build 🔧
         run: |
-          run: tox -e docs
+          tox -e docs
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
