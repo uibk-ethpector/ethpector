@@ -32,7 +32,7 @@ Version 0.1.4
 - added cfg api to BasicBlocks and BasicBlock
 
 
-Version 0.1.5
+Version 0.1.6
 =============
 
 - First public version

@@ -18,6 +18,10 @@
     :target: https://github.com/uibk-ethpector/ethpector/actions/workflows/docs.yaml/badge.svg
     :alt: docs
 
+
+.. image:: https://img.shields.io/pypi/v/ethpector.svg
+    :target: https://img.shields.io/pypi/v/ethpector.svg
+    :alt: pypi-version
 =========
 Ethpector
 =========
