@@ -42,7 +42,7 @@ build:
 	tox -e clean
 	tox -e build
 
-tpublish: build, version
+tpublish: build version
 	tox -e publish
 
 publish: build version
