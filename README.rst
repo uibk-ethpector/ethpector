@@ -18,17 +18,13 @@
     :target: https://github.com/uibk-ethpector/ethpector/actions/workflows/build.yaml
     :alt: build
 
-.. image:: https://github.com/uibk-ethpector/ethpector/actions/workflows/publishdocs.yaml/badge.svg
-    :target: https://github.com/uibk-ethpector/ethpector/actions/workflows/publishdocs.yaml
-    :alt: publishdocs
+.. image:: https://img.shields.io/pypi/v/ethpector.svg
+    :target: https://pypi.org/project/ethpector/
+    :alt: pypi-version
 
 .. image:: https://img.shields.io/badge/docs%20here-blue.svg
     :target: https://uibk-ethpector.github.io/ethpector/
     :alt: docs
-
-.. image:: https://img.shields.io/pypi/v/ethpector.svg
-    :target: https://pypi.org/project/ethpector/
-    :alt: pypi-version
 
 =========
 Ethpector

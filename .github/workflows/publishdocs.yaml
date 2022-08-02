@@ -2,8 +2,10 @@
 name: Docs Published
 
 on:
-  # Runs on pushes targeting the default branch
-  release
+  # Runs on release action from the UI
+  release:
+    types: [published]
+  workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -39,7 +41,6 @@ jobs:
       - name: Install and Build 🔧
         run: |
           tox -e docs
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
