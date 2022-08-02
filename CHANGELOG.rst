@@ -38,7 +38,7 @@ Version 0.1.6
 - First public version
 
 
-Version 0.1.7
+Version 0.1.8
 =============
 
 - Documentation and cleanup
