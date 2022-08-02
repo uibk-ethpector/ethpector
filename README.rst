@@ -103,9 +103,7 @@ options:
   --output_dir OUTPUT_DIR                           Directory to save the results if -f is specified. Default is ethspector-output/.
 
 
-
-
-DataS Sources
+Data Sources
 ===========
 For improved analysis results both an etherscan API token as well as a ethereum rpc node (infura, alchemy etc.) is beneficial.
 They can either be configured via command-line options (--rpc and --etherscan), via environment variables or .env files.
