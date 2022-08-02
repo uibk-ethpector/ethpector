@@ -309,6 +309,13 @@ def main(args):
     Args:
         args (TYPE): Description
     """
+
+    # Disable warnings.
+    if not sys.warnoptions and "dev" not in __version__:
+        import warnings
+
+        warnings.simplefilter("ignore")
+
     args = parse_args(args)
     config = Configuration(args)
 

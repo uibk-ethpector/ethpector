@@ -35,11 +35,11 @@ Ethpector
 
 Smart contracts are computer programs that coordinate financial agreements on blockchain systems. Although smart contract platforms are transparent in general smart contracts can be pretty opaque if their source-code is not available.
 
-Ethpector sets out to provide tools to analyze smart contract with and without access to their source-code. Its main focus is to provide tools and heuristics for the automated analysis and classification of smart contracts.
+Ethpector sets out to provide tools to analyze smart contracts with and without access to their source-code. Its main focus is to provide tools and heuristics for the automated analysis and classification of smart contracts.
 
 Currently the tool enables:
 
-- Fetching code by addresses (via web3 rpc)
+- Fetching code by addresses (via web3 RPC and Etherscan)
 - Fetching source-code for addresses (Etherscan and Sourcify)
 - Recovering interfaces including logs from binaries
 - Resolving function and event selectors (via 4bytes and more)
@@ -50,21 +50,32 @@ Currently the tool enables:
 
 For a more advanced example of how to use this data look at the examples in the experiments folder.
 
-Usage
-=====
+Install
+=======
 
 To install run
 ::
 
     > pip install ethpector
 
-or build from source directly by
+or build from source directly by first cloning the repository and then running
 
 ::
 
     > make install
 
-Use as follows:
+CLI
+===
+
+Example:
+
+::
+
+    > ethpector -a --output=functions 0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F
+
+The above command outputs a JSON data-structure describing all functions found in the ethereum binary including entry points (pcs). Furthermore, it contains information on if a function can only be executed by a particular sender (sender constraint) and if it contains certain instructions like logs, creates, suicides etc. To use the -a parameter a connection to an ethereum node or the Etherscan API is needed.
+
+Full list of CLI options:
 ::
 
     usage: ethpector [-h] [--version] [-r rpc] [-e etherscan_token] [-c] [-v] [-vv] [-d] [-a] [-f] [--dont_drop_metadatastring] [--output OUTPUT [OUTPUT ...]] [--output_dir OUTPUT_DIR] contract
@@ -91,8 +102,13 @@ options:
   --output OUTPUT                                   Output that should be produced: summary|disassembly|sourcecode|all|basicblocks|calls|storage|functions|known_interfaces. Note: Multiple OUTPUTS possible.
   --output_dir OUTPUT_DIR                           Directory to save the results if -f is specified. Default is ethspector-output/.
 
-For improved analysis results bot an etherscan api token as well as a ethereum node is beneficial.
-They can either be configured via commandline options (--rpc and --etherscan), via environment variables or .env files.
+
+
+
+DataS Sources
+===========
+For improved analysis results both an etherscan API token as well as a ethereum rpc node (infura, alchemy etc.) is beneficial.
+They can either be configured via command-line options (--rpc and --etherscan), via environment variables or .env files.
 
 An example .env file could look as follows:
 ::
@@ -105,7 +121,12 @@ An example .env file could look as follows:
     ETHPECTOR_MYTHRIL_MAX_DEPTH=512
     ETHPECTOR_MYTHRIL_SOLVER_TIMEOUT=200000
 
-A full list of configurable options can be found in src/ethpector/config/config.py.
+A full list of configurable options can be found in ``src/ethpector/config/config.py``.
+
+Library Usage and Examples
+==========================
+
+In the experiments folder you can find examples of how to use ethpector as a library which is the best way to use it to is full potential.
 
 The example folder holds some interesting binaries as well as addresses to test on.
 

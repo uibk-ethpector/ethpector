@@ -48,7 +48,7 @@ class Configuration:
             if o not in RECOGNIZED_OUTPUTS:
                 log.warning(
                     f"Output mode {o} not recognized. "
-                    "Possible values are: {RECOGNIZED_OUTPUTS}"
+                    f"Possible values are: {RECOGNIZED_OUTPUTS}"
                 )
 
         self.mythril = MythrilConfiguration(commandline_args)
