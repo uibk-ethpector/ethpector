@@ -1,5 +1,4 @@
 from functools import lru_cache
-from mythril.disassembler.disassembly import Disassembly
 from ethpector.classify import (
     InterfaceMatch,
     ContractClassifier,
@@ -22,10 +21,6 @@ class AssemblyAnalyzer:
         self.config = config
         self.program = Program(
             code, strip_metadata=config.drop_metadata_string_before_analysis()
-        )
-        self.disassembly = Disassembly(
-            self.program.get_bytecode_to_analyze(),
-            enable_online_lookup=not config.offline(),
         )
         self.classifier = ContractClassifier()
         bb = self.program.get_basic_blocks()
@@ -102,7 +97,9 @@ class AssemblyAnalyzer:
     def get_function_entrypoints(self):
         return [
             FunctionEntrypoint(pc=p, function_name=n)
-            for n, p in self.disassembly.function_name_to_address.items()
+            for n, p in self.program.get_functions(
+                online_lookup=not self.config.offline()
+            )
         ]
 
     def get_interface_matches(self, threshold=0.5) -> list[InterfaceMatch]:

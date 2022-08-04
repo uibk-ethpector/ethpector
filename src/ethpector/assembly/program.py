@@ -1,9 +1,10 @@
 import logging
 import pyevmasm as EVMAsm
 import networkx as nx
-from typing import Optional
+from typing import Optional, Tuple
 from mythril.ethereum import util
 from mythril.support.support_utils import get_code_hash
+from mythril.disassembler.disassembly import Disassembly
 from ethpector.data import (
     ToJsonDecorator,
     AnnotationBase,
@@ -310,6 +311,13 @@ class Program:
             )
             return None
         return self.pc_to_block[pc]
+
+    def get_functions(self, online_lookup: bool) -> list[Tuple[int, str]]:
+        myth_diss = Disassembly(
+            self.get_bytecode_to_analyze(),
+            enable_online_lookup=online_lookup,
+        )
+        return myth_diss.function_name_to_address.items()
 
     def mark_reachable(self, pc):
         self.reachable_pcs.add(pc)

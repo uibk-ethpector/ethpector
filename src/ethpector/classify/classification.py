@@ -113,6 +113,13 @@ class InterfaceMatch:
 
 KNOWN_BYTECODES = [
     KnownBytecode(
+        name="Kraken Forwarder Proxy?!",
+        pattern=(
+            r"^363d3d373d3d3d363d73[0-9a-fA-F]{40}" "5af43d82803e903d91602b57fd5bf3$"
+        ),
+        url="https://etherscan.io/address/0xfc9161b4ca1e5db6fecf7d914a73c95ac969b7b9",
+    ),
+    KnownBytecode(
         name="EIP-1167: Minimal Proxy Contract",
         pattern=(
             r"^363d3d373d3d3d363d73bebebebebebebebebebebebebebebebebebebebe"
@@ -1093,6 +1100,26 @@ KNOWN_INTERFACES = [
             )
         ],
         urls=["https://eips.ethereum.org/EIPS/eip-3668"],
+    ),
+    Interface(
+        name="Minimal Owner",
+        functions=[
+            FunctionDefinition("owner() external view returns(address)"),
+            FunctionDefinition("transferOwnership(address _newOwner) external"),
+        ],
+        events=[],
+        urls=[],
+        official_std=False,
+    ),
+    Interface(
+        name="Basic Ownership",
+        functions=[
+            FunctionDefinition("owner() external view returns(address)"),
+            FunctionDefinition("transferOwnership(address _newOwner) external"),
+        ],
+        events=[],
+        urls=[],
+        official_std=False,
     ),
     Interface(
         name="Ownership",
