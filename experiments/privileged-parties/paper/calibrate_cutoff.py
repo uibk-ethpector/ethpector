@@ -34,7 +34,7 @@ def clean_output():
 
 
 def run_experiment(cut_off):
-    os.system(f"python experiment.py {FOLDER}.json False 15 {cut_off}")
+    os.system(f"python scripts/experiment.py {FOLDER}.json False 15 {cut_off}")
 
 
 def get_data(cut_off):

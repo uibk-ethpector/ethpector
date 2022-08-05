@@ -1,4 +1,7 @@
-def fetch():
+import sys
+
+
+def fetch(tags_file):
     """Fetches the ethgasstation top gas guzzlers"""
     import requests
     from utils import load_dict_from_file, save_dict_to_file, timestamp
@@ -6,7 +9,7 @@ def fetch():
     # Top 10 ETH Contracts By Transaction Count Over Last 1,500 Blocks
     ret = requests.get("https://ethgasstation.info/json/gasguzz.json")
 
-    tags = load_dict_from_file("tags.json")
+    tags = load_dict_from_file(tags_file)
 
     ts = timestamp().replace(":", "-")
 
@@ -34,4 +37,7 @@ def fetch():
 
 
 if __name__ == "__main__":
-    fetch()
+    if len(sys.argv) < 2:
+        print("please provide a tags file as cmd argument.")
+        sys.exit(1)
+    fetch(sys.argv[1])

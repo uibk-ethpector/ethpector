@@ -3,21 +3,17 @@ import pandas as pd
 from ethpector.data.node import NodeProvider
 from ethpector.utils import bytes_to_hex
 
-FOLDER = "validation_set"
-SUMMARY_FILE = "validation_summary_600.csv"
 RPC_URL = "http://localhost:8545"  # This must be a archive node
+FILE = "ethpector-output/validation_set/validation_summary_600.csv"
 
 dp = NodeProvider(RPC_URL)
-
-df = pd.read_csv(f"ethpector-output/{FOLDER}/{SUMMARY_FILE}")
-blocks = pd.read_csv("blocks_date_daily.csv")
+df = pd.read_csv(FILE)
+blocks = pd.read_csv("data/blocks_date_daily.csv")
 
 blocks["n"] = 1
 blocks["n"] = blocks["n"].cumsum()
 
 start = 4_500_000
-# end = 15185027
-# step = 6000 # approx a day
 
 events = {}
 for i, row in blocks[blocks["block_id"] > start].iterrows():

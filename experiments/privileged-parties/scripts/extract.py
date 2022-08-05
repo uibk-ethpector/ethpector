@@ -13,9 +13,10 @@ def analyze_address_multiprocessing(input_tuple):
         expected_results_owners,
         folder,
         cutoff_time,
+        tags_file,
     ) = input_tuple
 
-    tags = load_dict_from_file("tags.json")
+    tags = load_dict_from_file(tags_file)
 
     if adr.lower() in tags:
         name = tags[adr.lower()]

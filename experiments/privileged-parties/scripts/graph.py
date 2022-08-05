@@ -8,13 +8,10 @@ def get_title(item):
     funds = item["address_summary"]["balance"]
     has_code = item["etherscan_abi_available"]
     funds = (funds / 10**18) if funds is not None else 0
-    c += f"\nEth:{funds}"
-    c += f"\nCode:{has_code}"
+    c += f"\nEth;{funds}"
+    c += f"\nCode;{has_code}"
 
-    c += (
-        f"\n<a href='https://etherscan.io/address/{address}' "
-        "target='_blank'>etherscan</a>"
-    )
+    c += f'\n<a href="etherscan.io/address/{address}" ' 'target="_blank">etherscan</a>'
 
     if item["address"] != item["name"]:
         return (
@@ -100,9 +97,11 @@ def build_graph(folder, only_with_owners=True):
 
             # nx_graph.add_node(ident)
             group, color = get_node_group(j)
-            nx_graph.nodes[ident]["title"] = get_title(j).replace("\n", "<br>")
-            nx_graph.nodes[ident]["label"] = get_label(j)
-            nx_graph.nodes[ident]["group"] = group
+            nx_graph.nodes[ident]["title"] = (
+                get_title(j).replace(":", "").replace("\n", "<br>")
+            )
+            nx_graph.nodes[ident]["label"] = get_label(j).replace(":", "")
+            nx_graph.nodes[ident]["group"] = str(group)
             nx_graph.nodes[ident]["color"] = color
 
     for j in data:
@@ -129,11 +128,11 @@ def build_graph(folder, only_with_owners=True):
                 nx_graph.add_edge(
                     get_id_for_address(owner),
                     ident,
-                    value=len(functions),
-                    weight=n,
+                    value=str(len(functions)),
+                    weight=str(n),
                     title=title,
                     color=color,
-                    group=group,
+                    group=str(group),
                 )
 
             if j["proxy_implementation"] is not None:
@@ -142,11 +141,11 @@ def build_graph(folder, only_with_owners=True):
                 nx_graph.add_edge(
                     ident,
                     get_id_for_address(a),
-                    value=1,
-                    weight=1,
+                    value=str(1),
+                    weight=str(1),
                     title="is implementation",
                     color=color,
-                    group=group,
+                    group=str(group),
                 )
 
     return nx_graph

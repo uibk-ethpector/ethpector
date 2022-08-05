@@ -5,3 +5,5 @@ nx_*.html
 network_*.html
 network_*.tex
 _*.py
+*.db
+*.csv

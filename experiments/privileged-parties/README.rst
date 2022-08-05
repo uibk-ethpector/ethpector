@@ -19,7 +19,7 @@ Run
 The Json file in the folder defines the experiment seeds. Experiments can be run via
 ::
 
-    python experiment.py [json seed file] [recursive (optional): bool; default=False] [nr_processes (optional): int; default=8]
+    python experiment.py [json seed file] [recursive (optional): bool; default=False] [nr_processes (optional): int; default=8] [cutoff_time (optional): int; default=600] [tags_file (optional): str; default=data/tags.json]
 
 This runs the experiment, and shows a summary in the end. The experiment writes all output to an special output folder, usually ethpector-output/[json filename without .json].
 
@@ -43,6 +43,17 @@ The forest/graph resulting form an experiment can be visualized. Either as one g
     python visualize.py  [output folder of the experiment] [per_component (optional): bool; default=False] [only_with_owners (optional): bool; default=False]
 
 only_with_owners controls if all nodes should be printed or just those that have owners and their respective owners. This means that if the seed file contained addresses that have no owners those will not be printed if only_with_owners is true.
+
+
+Seed File
+---------
+
+An interesting example seed file can be acquired via:
+::
+
+    python scripts/fetch_gas_guzzlers.py  [tag file]
+
+The script fetches the current top 10 gas users from ethergasstation.
 
 
 Tags

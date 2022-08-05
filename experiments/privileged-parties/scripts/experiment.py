@@ -11,21 +11,29 @@ import os
 import sys
 
 
-def prepare_worklist(dataset, folder, cutoff_time):
+def prepare_worklist(dataset, folder, cutoff_time, tags_file):
     addresses = [(x[0], x[1], x[2], x[3]) for x in dataset["data"]]
     return [
-        (adr, name, expected_res_functions, expected_res_owners, folder, cutoff_time)
+        (
+            adr,
+            name,
+            expected_res_functions,
+            expected_res_owners,
+            folder,
+            cutoff_time,
+            tags_file,
+        )
         for adr, name, expected_res_functions, expected_res_owners in addresses
     ]
 
 
-def run_result(seed_file, recursiv, n_parallel, cutoff_time):
+def run_result(seed_file, recursiv, n_parallel, cutoff_time, tags_file):
     filename = seed_file
     jdata = load_dict_from_file(filename)
 
     print(f"Input is {filename}: {jdata['description']}")
 
-    clean_filename = filename.split(".")[0]
+    clean_filename = os.path.basename(filename).split(".")[0]
     rec_lbl = "_rec" if recursiv else ""
     folder = f"ethpector-output/{clean_filename}{rec_lbl}"
 
@@ -33,8 +41,8 @@ def run_result(seed_file, recursiv, n_parallel, cutoff_time):
 
     os.makedirs(folder, exist_ok=True)
 
-    worklist = prepare_worklist(jdata, folder, cutoff_time)
-    already_seen = {adr.lower(): True for adr, _, _, _, _, _ in worklist}
+    worklist = prepare_worklist(jdata, folder, cutoff_time, tags_file)
+    already_seen = {adr.lower(): True for adr, _, _, _, _, _, _ in worklist}
     owners = set()
     round = 0
 
@@ -54,6 +62,7 @@ def run_result(seed_file, recursiv, n_parallel, cutoff_time):
             ),
             folder,
             cutoff_time,
+            tags_file,
         )
         for x in so:
             already_seen[x] = True
@@ -88,4 +97,5 @@ if __name__ == "__main__":
         recursiv=sys.argv[2].lower() == "true" if len(sys.argv) >= 3 else False,
         n_parallel=int(sys.argv[3]) if len(sys.argv) >= 4 else 8,
         cutoff_time=int(sys.argv[4]) if len(sys.argv) >= 5 else 600,
+        tags_file=sys.argv[5] if len(sys.argv) >= 6 else "data/tags.json",
     )
