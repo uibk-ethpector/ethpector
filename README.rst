@@ -39,10 +39,10 @@ Ethpector sets out to provide tools to analyze smart contracts with and without 
 
 Currently the tool enables:
 
-- Fetching code by addresses (via web3 RPC and Etherscan)
+- Fetching byte-code for addresses (via web3 RPC and Etherscan)
 - Fetching source-code for addresses (Etherscan and Sourcify)
 - Recovering interfaces including logs from binaries
-- Resolving function and event selectors (via 4bytes and more)
+- Resolving function and event signatures (via 4bytes and more)
 - It uses control-flow analysis and symbolic execution (mythril) to extract data like calls, stores, logs, etc. including parameters if possible
 - It creates annotated disassembly
 - It simple contract classification method based on interfaces and bytecode
@@ -74,6 +74,12 @@ Example:
     > ethpector -a --output=functions 0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F
 
 The above command outputs a JSON data-structure describing all functions found in the ethereum binary including entry points (pcs). Furthermore, it contains information on if a function can only be executed by a particular sender (sender constraint) and if it contains certain instructions like logs, creates, suicides etc. To use the -a parameter a connection to an ethereum node or the Etherscan API is needed.
+
+::
+
+    > ethpector -a --output=summary 0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F
+
+The summary output provides an overview of functions and relevant instructions found in the binary like calls to other contracts, logs emitted positions of self destructs etc.
 
 Full list of CLI options:
 ::
@@ -124,7 +130,7 @@ A full list of configurable options can be found in ``src/ethpector/config/confi
 Library Usage and Examples
 ==========================
 
-In the experiments folder you can find examples of how to use ethpector as a library which is the best way to use it to is full potential.
+In the experiments folder you can find examples of how to use ethpector as a library which is the best way to use it to its full potential.
 
 The example folder holds some interesting binaries as well as addresses to test on.
 
