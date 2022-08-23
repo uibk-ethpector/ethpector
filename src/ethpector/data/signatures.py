@@ -43,9 +43,47 @@ class SignatureProvider(DataProvider):
         self.sigdb = SignatureDB(enable_online_lookup=enable_online_lookup)
 
     def lookup_function(self, sign):
+        local_funsig = self.lookup_function_localA4bytes(sign)
+        if local_funsig is None or len(local_funsig) == 0:
+            return self.lookup_function_etherface(sign)
+        else:
+            return local_funsig
+
+    def lookup_function_localA4bytes(self, sign):
         return self.sigdb.get(sign)
 
-    def lookup_event(self, sign):
+    def lookup_function_etherface(self, sign, add_local=True):
+        # if local search and 4bytes fails use etherface
+        etherface = self.lookup_etherface(sign, "function")
+        if add_local:
+            for x in etherface:
+                # cache etherface results
+                add_to_signature_db(x)
+
+        return etherface
+
+    def lookup_etherface(self, sign, kind):
+        n_pages, p1r = self.lookup_etherface_page(sign, kind, 1)
+        for pn in range(1, n_pages):
+            _, pnr = self.lookup_etherface_page(sign, kind, pn + 1)
+            p1r.append(pnr)
+        return p1r
+
+    def lookup_etherface_page(self, sign, kind, page):
+        if self._offline:
+            return None
+        sign = strip_0x(sign).lower()
+        r = requests.get(
+            f"https://api.etherface.io/v1/signatures/hash/{kind}/{sign}/{page}",
+            params={},
+        )
+        r.raise_for_status()
+        res_j = r.json()
+        pages = int(res_j["total_pages"])
+        res = [x["text"] for x in res_j["items"] if "text" in x]
+        return (pages, res) if len(res) > 0 else (pages, None)
+
+    def lookup_event_4bytes(self, sign):
         if self._offline:
             return None
         sign = strip_0x(sign)
@@ -58,6 +96,16 @@ class SignatureProvider(DataProvider):
         res = r.json()
         res = [x["text_signature"] for x in res["results"] if "text_signature" in x]
         return res if len(res) > 0 else None
+
+    def lookup_event_etherface(self, sign):
+        return self.lookup_etherface(sign, "event")
+
+    def lookup_event(self, sign):
+        fbytes = self.lookup_event_4bytes(sign)
+        if fbytes is None or len(fbytes) == 0:
+            return self.lookup_event_etherface(sign)
+        else:
+            return fbytes
 
     def function_name(self, selector: str) -> str:
         """Get a function signature for a selector.

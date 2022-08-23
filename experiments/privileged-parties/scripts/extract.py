@@ -188,7 +188,7 @@ def analyze_address(
 
         def get_event_name(resolver, selector, log):
             try:
-                return signatures_lookup.lookup_event(selector)
+                return signatures_lookup.event_name(selector)
             except Exception as e:
                 log.error(f"Could not resolve event name {e}")
                 return None

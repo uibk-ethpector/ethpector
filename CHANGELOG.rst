@@ -42,3 +42,8 @@ Version 0.1.8
 =============
 
 - Documentation and cleanup
+
+Version 0.2 (Not yet released)
+=============
+
+- Support for etherface.io to resolve events and signatures.
