@@ -71,7 +71,7 @@ class SignatureProvider(DataProvider):
 
     def lookup_etherface_page(self, sign, kind, page):
         if self._offline:
-            return None
+            return (0, None)
         sign = strip_0x(sign).lower()
         r = requests.get(
             f"https://api.etherface.io/v1/signatures/hash/{kind}/{sign}/{page}",
