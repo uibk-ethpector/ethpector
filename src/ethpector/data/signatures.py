@@ -55,7 +55,7 @@ class SignatureProvider(DataProvider):
     def lookup_function_etherface(self, sign, add_local=True):
         # if local search and 4bytes fails use etherface
         etherface = self.lookup_etherface(sign, "function")
-        if add_local:
+        if add_local and etherface is not None:
             for x in etherface:
                 # cache etherface results
                 add_to_signature_db(x)
