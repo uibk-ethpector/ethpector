@@ -77,7 +77,11 @@ class SignatureProvider(DataProvider):
             f"https://api.etherface.io/v1/signatures/hash/{kind}/{sign}/{page}",
             params={},
         )
-        r.raise_for_status()
+        if r.status_code == 404:
+            # etherface uses 404 as not signatures found
+            return (0, None)
+        else:
+            r.raise_for_status()
         res_j = r.json()
         pages = int(res_j["total_pages"])
         res = [x["text"] for x in res_j["items"] if "text" in x]
