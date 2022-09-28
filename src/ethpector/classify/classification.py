@@ -4,6 +4,27 @@ from ethpector.utils import is_hex_string, to_int, strip_0x
 from .parser import FunctionDefinition, EventDefinition
 
 
+def get_intererfaces_for_function(function_str):
+    fun = FunctionDefinition(function_str)
+    for intf in KNOWN_INTERFACES:
+        for f in intf.functions:
+            if fun.selector() == f.selector():
+                yield intf
+
+
+def get_intererfaces_for_event(event_str):
+    log = EventDefinition(event_str)
+    for intf in KNOWN_INTERFACES:
+        for e in intf.events:
+            if log.selector() == e.selector():
+                yield intf
+
+
+def get_interface_by_name(name):
+    res = [i for i in KNOWN_INTERFACES if i.name == name]
+    return res[0] if len(res) > 0 else None
+
+
 # TODO add parent standards, for kind of inheritance
 @dataclass
 class Interface:
@@ -405,6 +426,12 @@ KNOWN_INTERFACES = [
             ),
         ],
         urls=["https://eips.ethereum.org/EIPS/eip-2980"],
+    ),
+    Interface(
+        name="Updateable Contract",
+        functions=[],
+        events=[EventDefinition("ContractUpgrade(address)")],
+        urls=[],
     ),
     Interface(
         name="ERC2980-issuable",
@@ -1207,6 +1234,16 @@ KNOWN_INTERFACES = [
     Interface(
         name="OpenZeppelin Pause Pattern",
         functions=[FunctionDefinition("paused()")],
+        magic_constants=[],
+        urls=[
+            "https://github.com/OpenZeppelin/openzeppelin-contracts"
+            "/blob/master/contracts/security/Pausable.sol"
+        ],
+        official_std=False,
+    ),
+    Interface(
+        name="OpenZeppelin Pause Pattern Extended",
+        functions=[FunctionDefinition("pause()"), FunctionDefinition("unpause()")],
         magic_constants=[],
         urls=[
             "https://github.com/OpenZeppelin/openzeppelin-contracts"

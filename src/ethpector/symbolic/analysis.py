@@ -96,6 +96,11 @@ class SymbolicAnalyzer:
                                         "selector {} and signature {}: "
                                         "{}".format(selector, sign, e)
                                     )
+            functions = list(recover.public_functions.values())
+
+            payable = recover.payable()
+            for f in functions:
+                f.is_payable = f.functions_string() in payable
 
             return SymbolicExecSummary(
                 functions=list(recover.public_functions.values()),

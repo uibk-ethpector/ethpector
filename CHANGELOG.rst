@@ -47,3 +47,5 @@ Version 0.2 (Not yet released)
 =============
 
 - Support for etherface.io to resolve events and signatures.
+- added heuristic payable detection
+- added experimental risk report/ui

@@ -57,12 +57,16 @@ class EtherscanProvider(DataProvider):
                 return [
                     {"file": file, "source_code": content["content"]}
                     for file, content in source_pack["sources"].items()
+                    if len(file.strip()) > 0 or len(content["content"].strip()) > 0
                 ]
 
             except json.decoder.JSONDecodeError:
                 pass
 
-            return [{"file": sc["ContractName"], "source_code": sc["SourceCode"]}]
+            if len(sc["ContractName"].strip()) > 0 or len(sc["SourceCode"].strip()) > 0:
+                return [{"file": sc["ContractName"], "source_code": sc["SourceCode"]}]
+            else:
+                return None
         else:
             return None
 

@@ -282,7 +282,7 @@ class MsgSender(DetectionModule):
                         jmp_str = str(jmp_condition)
                         const_str = str(constraints_copy)
                         if false_reachable and true_reachable:
-                            log.error(
+                            log.debug(
                                 f"{func}: Both false and true part are reachable "
                                 "if sender is set in storage field, does not look "
                                 "like owner check. "
@@ -296,7 +296,7 @@ class MsgSender(DetectionModule):
                         elif true_reachable:
                             model = model_true
                         else:
-                            log.error(
+                            log.debug(
                                 f"{func}: None of the paths are reachable if sender is "
                                 "set in storage field, skipping potential "
                                 "sender constraint."

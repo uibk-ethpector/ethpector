@@ -12,3 +12,12 @@ Privileged Parties
 See privileged parties folder for more details.
 
 .. include:: ../experiments/privileged-parties/README.rst
+
+
+
+Risk Report
+==================
+
+See privileged parties folder for more details.
+
+.. include:: ../experiments/risk_report/README.rst

@@ -183,11 +183,27 @@ class SymbolicMemorySlice:
             and all(map(lambda x: type(x) == int, self.mem))
         )
 
+    def is_concrete_selector(self):
+        if self.mem is None or len(self.mem) < 4:
+            return None
+        m = self.mem[:4]
+        return (
+            m is not None and type(m) == list and all(map(lambda x: type(x) == int, m))
+        )
+
+    def concrete_val_selector(self):
+        if self.mem is None or len(self.mem) < 4:
+            return None
+        return bytes(self.mem[:4]) if self.is_concrete_selector() else None
+
     def is_symbolic(self):
         return not self.is_concrete()
 
     def concrete_val(self):
         return bytes(self.mem) if self.is_concrete() else None
+
+    def empty(self):
+        return self.mem is None or len(self.mem) == 0
 
     def __str__(self):
         return truncate_str(self.__repr__(), 100)
@@ -235,6 +251,9 @@ class SymbolicVariable:
 
     def concrete_val(self):
         return self.val() if not self.is_symbolic() else None
+
+    def empty(self):
+        return False
 
     def __str__(self):
         return truncate_str(self.__repr__(), 100)
@@ -450,8 +469,19 @@ class Call(SymbolicAnnotation):
             self.data.concrete_val() if self.data and self.data.is_concrete() else None
         )
 
+    def get_calldata_selector(self):
+        return (
+            self.data.concrete_val_selector()
+            if self.data and self.data.is_concrete_selector()
+            else None
+        )
+
     def get_calldata_hex(self):
         d = self.get_calldata()
+        return d.hex() if d else None
+
+    def get_calldata_selector_hex(self):
+        d = self.get_calldata_selector()
         return d.hex() if d else None
 
 
@@ -890,6 +920,7 @@ class SenderConstraintFunction(SymbolicAnnotation):
 class FunctionSummary(AnnotationBase):
     name: str
     pcs: set[int] = field(default_factory=set, repr=False)
+    is_payable: bool = False
     has_writes: bool = False
     has_reads: bool = False
     has_logs: bool = False
