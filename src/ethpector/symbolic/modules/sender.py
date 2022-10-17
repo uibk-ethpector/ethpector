@@ -310,7 +310,7 @@ class MsgSender(DetectionModule):
                             type(storage_address) == int
                             and storage_address not in addrs
                         ):
-                            log.warning(
+                            log.debug(
                                 "Storage address is not part of the constraint. "
                                 f"skipping: {jmp_condition}. "
                                 f"Slot: {storage_address} not in {addrs}. Func: {func}"

@@ -33,13 +33,13 @@ def get_functions(db, x):
 # os.chdir("experiments/privileged-parties")
 
 if len(sys.argv) < 2:
-    print("please provide crates csv file.")
+    print("please provide creates csv file.")
     sys.exit(1)
 
 C_FILE = sys.argv[1]
 
-RECALC = False
-CALC = False
+RECALC = True
+CALC = True
 
 bt = pd.read_csv("data/blocks_date_daily.csv")
 
@@ -173,9 +173,53 @@ with shelve.open("_interfaces_classification.db") as db:
     ok["bc"] = ok["code_hash"].apply(lambda x: get_bc(db, x))
     ok["functions"] = ok["code_hash"].apply(lambda x: get_functions(db, x))
     ok["cat"] = ok.apply(cat_broad, axis=1)
-    z = ok[["block", "from", "to", "cat", "interfaces", "bc", "functions", "len"]]
+    z = ok[
+        [
+            "block",
+            "from",
+            "to",
+            "cat",
+            "interfaces",
+            "bc",
+            "functions",
+            "len",
+            "code_hash",
+        ]
+    ]
     z["date"] = z["block"].apply(lambda b: bt[bt["block_id"] < b].iloc[-1]["date"])
 
+    print("most common in ot")
+    ot = z[z["cat"] == "ot"]
+    print(f" Total {len(ot)}")
+    from collections import Counter
+
+    ctr = Counter(ot["code_hash"])
+    abc = pd.DataFrame()
+    nr = 0
+    kraken_hashes = []
+    print(len(ctr))
+    for item, count in ctr.most_common():
+        x = ot[ot["code_hash"] == item].iloc[0]
+        f = x["functions"]
+        b = x["bc"]
+        i = x["interfaces"]
+        le = x["len"]
+        if b == "Kraken Forwarder Proxy?!":
+            kraken_hashes.append((item, count))
+        else:
+            if count > 20:
+                print(f"{item} accounts for {count} ({count/len(ot)})")
+                print(f"{f} {b} {i} {le}")
+        nr += count
+        pd.concat([abc, x])
+
+    count = sum([c for i, c in kraken_hashes])
+
+    print(f"Kraken forwarder {len(kraken_hashes)} {count} ({count/len(ot)}) ")
+
+    print(f"most common accounted for {nr/len(ot)}")
+
+    abc.to_csv("most_common_ot.csv", index=False)
     z.to_csv("creates_with_interfaces.csv", index=False)
 
     g = z.drop("functions", axis=1).groupby(["date", "cat"]).agg({"block": ["count"]})
@@ -191,6 +235,7 @@ with shelve.open("_interfaces_classification.db") as db:
 
     window = 3
 
+    t = t[["o", "m", "ot", "u"]]
     t_rel_all = t.div(t.sum(axis=1), axis=0)
 
     print(t_rel_all["u"].mean())
@@ -200,6 +245,7 @@ with shelve.open("_interfaces_classification.db") as db:
     t_rel = temp.div(temp.sum(axis=1), axis=0)
 
     t_relc = t_rel.cumsum(axis=1)
+
     print("%", "#" * 70)
     print("% Relative values")
     for col in reversed(t_relc.columns):

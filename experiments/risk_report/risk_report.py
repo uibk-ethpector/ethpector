@@ -114,7 +114,7 @@ def get_interface_match(f):
         f = af.pop()
         fm = get_intererfaces_for_function(sanetize_function_name(f))
 
-    return ",".join([inf.name for inf in fm])
+    return ", ".join([inf.name for inf in fm])
 
 
 def get_general_info_table(
@@ -311,7 +311,7 @@ def get_public_interface_details_view(summary, function_summary, online_info):
             f, _ = get_canonical_function_name(f)
         else:
             f = "-"
-        ifs = ",".join([inf.name for inf in get_intererfaces_for_event(ln)])
+        ifs = ", ".join([inf.name for inf in get_intererfaces_for_event(ln)])
         tablee.add_row(f"{ln}", tf_unicode(is_known_function(ln)), f, ifs)
 
     return (
@@ -449,7 +449,7 @@ def get_call_details_view(summary, function_summary, online_info):
                 "medium",
                 (
                     f"Contract can send Ether in function {f_in} to {to_str} "
-                    "by calling {f_str}."
+                    f"by calling {f_str}."
                 ),
             )
 
@@ -516,7 +516,7 @@ def get_storage_details_view(address, summary, function_summary, online_info):
         cv = rw["slot"].concrete_val()
         if cv is not None:
             val = resolver.get_storage_at(address, hex(cv)).hex()
-        table.add_row(slot_str, val, ",".join(wf), ",".join(rf))
+        table.add_row(slot_str, val, ", ".join(wf), ", ".join(rf))
 
     return table
 

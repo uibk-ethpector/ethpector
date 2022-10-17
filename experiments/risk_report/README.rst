@@ -2,7 +2,7 @@
 Overview
 --------
 
-The risk_report produces a report about an smart contract laying summarizes risks involved regarding the interaction with a smart contract
+The risk_report produces a report about an smart contract and summarizes risks involved regarding the interaction with a smart contract
 
 
 Installation

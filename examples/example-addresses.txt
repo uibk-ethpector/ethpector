@@ -5,3 +5,4 @@
 0xca2ad74003502af6b727e846fab40d6cb8da0035 - Stakehavens, Source-code on sourcify, ERC20
 0x000000000000006f6502b7f2bbac8c30a3f67e9a - Strange frontrunning contract without functions
 0x0000000000007f150bd6f54c40a34d7c3d5e9f56 - similar to the last entry
+0xD65960FAcb8E4a2dFcb2C2212cb2e44a02e2a57E - Soarcoin (privileged paries) https://dl.acm.org/doi/pdf/10.1145/3560264
