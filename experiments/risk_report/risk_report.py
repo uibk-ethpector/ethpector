@@ -120,7 +120,9 @@ def get_interface_match(f):
 def get_general_info_table(
     analysis, summary, interface, account_summary, source_summary
 ):
-    is_sc_available = len(source_summary.source_code.keys()) > 0
+    is_sc_available = (
+        source_summary.source_code and len(source_summary.source_code.keys()) > 0
+    )
     bs = int((len(analysis.get_bytecode()) - 2) / 2)
     table = Table(title="Account Summary", safe_box=True)
     table.add_column("property", justify="right", style="cyan", no_wrap=False)
@@ -149,22 +151,23 @@ def get_general_info_table(
 
 def get_source_info_table(source_summary):
     c = []
-    for source, files in source_summary.source_code.items():
-        loc = 0
-        for file in files:
-            code = file["source_code"][0:-1]
-            loc += len(code.split("\n"))
+    if source_summary.source_code:
+        for source, files in source_summary.source_code.items():
+            loc = 0
+            for file in files:
+                code = file["source_code"][0:-1]
+                loc += len(code.split("\n"))
 
-        table = Table(title=source)
-        table.add_column("property", justify="right", style="cyan", no_wrap=True)
-        table.add_column("", style="magenta", justify="right")
+            table = Table(title=source)
+            table.add_column("property", justify="right", style="cyan", no_wrap=True)
+            table.add_column("", style="magenta", justify="right")
 
-        table.add_row("# Files", f"{len(files)}")
-        table.add_row("# LoC", f"{loc}")
-        c.append(table)
+            table.add_row("# Files", f"{len(files)}")
+            table.add_row("# LoC", f"{loc}")
+            c.append(table)
 
-    if len(source_summary.source_code.items()) == 0:
-        c.append(Text("No source-code found", style="bold red"))
+        if len(source_summary.source_code.items()) == 0:
+            c.append(Text("No source-code found", style="bold red"))
 
     return Panel.fit(Columns(c), title="Source Summary")
 
@@ -233,7 +236,7 @@ def get_standards_summary_table(interface):
 
     nr = len(interface.disassembly)
 
-    nr_a = len(interface.address)
+    nr_a = len(interface.address) if interface.address else 0
     nr_b = len(interface.bytecode)
 
     table.add_row("# Standards Implemented", f"{nr}")
@@ -244,7 +247,11 @@ def get_standards_summary_table(interface):
 
 
 def get_function_for_pc(function_summary, pc):
-    canidates = [f for f in function_summary if f.detailed_overview[0].valid_at(pc)]
+    canidates = [
+        f
+        for f in function_summary
+        if len(f.detailed_overview) > 0 and f.detailed_overview[0].valid_at(pc)
+    ]
     if len(canidates) > 0:
         return canidates[0].entry_point.function_name
     else:
@@ -407,8 +414,9 @@ def get_standards_detailed_view(summary, function_summary, interface, online_inf
 
         table.add_row(inter.name, "interface")
 
-    for x in interface.address:
-        table.add_row(x.name, "address", "")
+    if interface.address:
+        for x in interface.address:
+            table.add_row(x.name, "address", "")
 
     for x in interface.bytecode:
         table.add_row(x.name, "bytecode", "")
@@ -515,7 +523,8 @@ def get_storage_details_view(address, summary, function_summary, online_info):
         val = ""
         cv = rw["slot"].concrete_val()
         if cv is not None:
-            val = resolver.get_storage_at(address, hex(cv)).hex()
+            val = resolver.get_storage_at(address, hex(cv))
+            val = val.hex() if val else val
         table.add_row(slot_str, val, ", ".join(wf), ", ".join(rf))
 
     return table
@@ -533,16 +542,22 @@ def get_privileged_details_view(function_summary, online_info):
             if sc.address.concrete_val() is not None:
                 res = resolver.get_storage_at(
                     args.address, hex(sc.address.concrete_val())
-                ).hex()
-                addr = parse_address_from_storage(res)[0] if res is not None else res
+                )
+                addr = (
+                    parse_address_from_storage(res.hex())[0]
+                    if res is not None
+                    else sc.address
+                )
             else:
                 addr = sc.address
         else:
             addr = sc.address
-        if addr not in parties:
-            parties[addr] = lbl
-            lbl = chr(ord(lbl) + 1)
-        fun[x.entry_point.function_name] = (addr, sc)
+
+        if addr is not None:
+            if addr not in parties:
+                parties[addr] = lbl
+                lbl = chr(ord(lbl) + 1)
+            fun[x.entry_point.function_name] = (addr, sc)
 
     table = Table(title="Privileged Parties")
     table.add_column("address", justify="right", style="cyan", no_wrap=True)
@@ -620,7 +635,10 @@ def main(args, cutoff_time=None):
 
     # Reading Data
     # with Console(stderr=False).status("Working..."):
-    analysis = extract_information(address=args.address, code=None, config=config)
+    if args.bytecode:
+        analysis = extract_information(code=args.address, address=None, config=config)
+    else:
+        analysis = extract_information(address=args.address, code=None, config=config)
     # fs = analysis.get_sender_constraint_functions()
     # interf = analysis.get_interface_matches(threshold=0.2)
     summary = analysis.get_summary()
@@ -735,6 +753,13 @@ if __name__ == "__main__":
         "address",
         type=str,
         help="Address to inspect.",
+    )
+
+    parser.add_argument(
+        "--bytecode",
+        action=BooleanOptionalAction,
+        default=False,
+        help="address field contains bytecode",
     )
 
     parser.add_argument(

@@ -294,9 +294,12 @@ def analyze_address(
                 logger.info(f"Use shifted address, {owner_address}")
 
             if extracted_address is not None:
-                address_summary = asdict(
-                    online_resolver.account_summary(extracted_address)
-                )
+                try:
+                    address_summary = asdict(
+                        online_resolver.account_summary(extracted_address)
+                    )
+                except Exception:
+                    address_summary = None
             else:
                 address_summary = None
 
