@@ -686,7 +686,7 @@ def main(args, cutoff_time=None):
     )
 
     if len(risks) == 0:
-        add_risk("No Risks yet")
+        add_risk("", "low", "No Risks yet")
 
     risks_view = get_risks_detail_view(risks)
 

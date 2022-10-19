@@ -45,10 +45,10 @@ Currently the tool enables:
 - Resolving function and event signatures (via 4bytes and more)
 - It uses control-flow analysis and symbolic execution (mythril) to extract data like calls, stores, logs, etc. including parameters if possible
 - It creates annotated disassembly
-- It simple contract classification method based on interfaces and bytecode
-- Parsing metadata like swarm and ipfs hashes
+- It implements a simple contract classification method based on interfaces and bytecode
+- It parses metadata like swarm and ipfs hashes
 
-For a more advanced example of how to use this data look at the examples in the experiments folder.
+For a more advanced example of how to use this data look at the examples in the **experiments** folder.
 
 Install
 =======
