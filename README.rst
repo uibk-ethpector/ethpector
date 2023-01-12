@@ -221,7 +221,7 @@ The following section contains a couple of similar projects and useful libraries
 Funding
 =======
 
-This project was created in the course of the KRYPTOMONITOR project.
+This project was created at Universität Innsbruck, Austria, in the course of the KRYPTOMONITOR project.
 
     The security research project KRYPTOMONITOR is funded by the Austrian
     security research programme KIRAS of the Federal Ministry of Agriculture,
