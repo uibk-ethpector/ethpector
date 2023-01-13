@@ -134,6 +134,14 @@ In the experiments folder you can find examples of how to use ethpector as a lib
 
 The example folder holds some interesting binaries as well as addresses to test on.
 
+Graphical User Interface
+========================
+
+Ethpector itself does not offer a graphical user interface to conveniently explore the binary code of a smart contract. The project CtrlEth builds a UI for exactly that on top of the Ethpector analysis library.
+
+- `CtrlEth <https://github.com/AaronTarga/CtrlEth>`_
+
+
 Development
 ===========
 
