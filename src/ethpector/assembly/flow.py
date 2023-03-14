@@ -58,7 +58,7 @@ class EvmState:
     def advance(self) -> set[object]:
         pass
 
-    def execute(self, threshold=10**6):
+    def execute(self, threshold=10**5):
         stack = Stack()
         stack.push(self)
         seen = {}
